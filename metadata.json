@@ -1,0 +1,6 @@
+{
+  "name": "PlaceMate AI",
+  "description": "AI-powered Placement Training Platform for College Students featuring Aptitude, DSA, Coding, Mock Interviews, Resume Analysis, and Spoken Practice.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
