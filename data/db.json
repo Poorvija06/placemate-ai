@@ -1,0 +1,55 @@
+{
+  "users": {
+    "poorvijadhanusri.cse23@mamcet.com": {
+      "profile": {
+        "id": "usr_1786564979166_lmuop",
+        "fullName": "Poorvija Dhanusri D",
+        "email": "poorvijadhanusri.cse23@mamcet.com",
+        "collegeName": "M.A.M. College of engineering and Technology",
+        "year": "Fourth Year",
+        "department": "Computer Science and Engineering (CSE)",
+        "programmingLanguage": "Java",
+        "domain": "Software Development",
+        "targetCompany": "TCS",
+        "explanationLanguage": "Tamil",
+        "createdAt": "2026-08-12T20:02:59.166Z"
+      },
+      "passwordHash": "mamcet123"
+    }
+  },
+  "progress": {
+    "poorvijadhanusri.cse23@mamcet.com": {
+      "userId": "usr_1786564979166_lmuop",
+      "placementReadiness": 0,
+      "aptitude": 0,
+      "dsa": 0,
+      "programming": 0,
+      "communication": 0,
+      "mockInterview": 0,
+      "companyPrep": 0,
+      "aptitudeSolved": 0,
+      "dsaProblemsSolved": 0,
+      "programmingProblemsSolved": 0,
+      "speakingSessions": 0,
+      "mockInterviews": 0,
+      "dailyStreak": 0,
+      "xp": 0,
+      "achievements": [],
+      "lastActiveDate": "2026-08-12T20:02:59.166Z",
+      "completedTopics": {
+        "aptitude": [],
+        "dsa": [],
+        "programming": [],
+        "company": []
+      },
+      "dailyChallengesCompleted": {}
+    }
+  },
+  "resumes": {},
+  "interviewHistories": {
+    "poorvijadhanusri.cse23@mamcet.com": []
+  },
+  "coachHistories": {
+    "poorvijadhanusri.cse23@mamcet.com": []
+  }
+}
