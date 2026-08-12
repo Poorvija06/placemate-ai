@@ -1812,5 +1812,6 @@ app.get('*', (req, res, next) => {
     console.log(`PlaceMate AI Server running on http://0.0.0.0:${PORT}`);
   });
 }
+}
 
 startServer();
