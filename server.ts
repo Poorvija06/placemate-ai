@@ -988,6 +988,7 @@ Return JSON ONLY matching the required schema.
 // 7. Aptitude AI Tutor Endpoint
 app.post('/api/ai/aptitude-lesson', async (req, res) => {
   const { topic, difficulty, explanationLanguage } = req.body;
+  console.log("LANGUAGE FROM FRONTEND:", explanationLanguage);
   try {
     const langInst = getLanguageInstruction(explanationLanguage || 'English');
 
