@@ -418,80 +418,7 @@ function getCoachChatFallback(userMessage: string, lang: string) {
   return `Thank you for asking! In campus placement preparation, consistency across Aptitude, Data Structures, Programming, and Spoken Communication is key. Focus on solving 2 coding problems daily and practicing 1 mock interview session every week. Let me know if you want to drill down into specific questions!`;
 }
 
-function getCompanyPrepFallback(companyName: string, domain: string) {
-  const company = companyName || 'TCS';
-  return {
-    company: company,
-    examPattern: [
-      `Round 1: Online Cognitive & Technical Test (Aptitude, Reasoning, Coding)`,
-      `Round 2: Technical Interview (DSA, OOPs, DBMS, Project Deep Dive)`,
-      `Round 3: HR & Management Discussion (Communication, Willingness to relocate)`
-    ],
-    aptitudeFocus: [
-      `Percentages, Profit & Loss, Ratios & Proportions`,
-      `Time, Speed & Distance, Work & Time`,
-      `Data Interpretation & Logical Puzzles`
-    ],
-    technicalFocus: [
-      `Core Language Concepts (Java / Python / C++)`,
-      `Arrays, Strings, Linked Lists, Sorting & Searching`,
-      `SQL Queries, Joins, Indexing, and Normalization`
-    ],
-    technicalQuestions: [
-      {
-        question: `What is the difference between overriding and overloading in ${company} coding assessments?`,
-        answer: `Overloading occurs in the same class with same method name but different parameter list (compile-time polymorphism). Overriding occurs in sub-classes with identical method signature (runtime polymorphism).`
-      },
-      {
-        question: `Explain Primary Key vs Unique Key in SQL.`,
-        answer: `A Primary Key uniquely identifies a record and cannot accept NULL values (only 1 per table). A Unique Key prevents duplicate entries but can allow 1 NULL value.`
-      }
-    ],
-    hrQuestions: [
-      {
-        question: `Why do you want to join ${company}?`,
-        idealAnswer: `I admire ${company}'s focus on innovation, global training programs, and career growth for fresh graduates. My technical foundation aligns strongly with ${company}'s technology stack.`
-      }
-    ],
-    proTips: [
-      `Master time management during Round 1 online speed math.`,
-      `Be prepared to explain every single line of code in your resume projects.`,
-      `Maintain strong eye contact and confident body language in HR discussions.`
-    ]
-  };
-}
 
-function getDailyChallengesFallback(progLang: string) {
-  const pLang = progLang || 'Java';
-  return [
-    {
-      id: 'c_apt_1',
-      category: 'Aptitude',
-      title: 'Quant Sprint',
-      description: 'A pipe can fill a tank in 6 hours. Halfway filled, 3 more similar pipes are opened. What is the total time taken to fill the tank completely?',
-      type: 'mcq',
-      options: ['3 hrs 45 mins', `4 hrs`, `4 hrs 15 mins`, `5 hrs`],
-      correctIndex: 0,
-      rewardXp: 20
-    },
-    {
-      id: 'c_prog_2',
-      category: 'Programming',
-      title: `Micro Code Challenge (${pLang})`,
-      description: `Write a single function to check if a given string is a Palindrome ignoring case.`,
-      type: 'code',
-      rewardXp: 30
-    },
-    {
-      id: 'c_comm_3',
-      category: 'Communication',
-      title: 'HR Situational Challenge',
-      description: 'How would you handle a situation where a team member misses their deadline on a critical campus project?',
-      type: 'text',
-      rewardXp: 25
-    }
-  ];
-}
 
 // ----------------------------------------------------
 // API ROUTES
@@ -1623,82 +1550,226 @@ Rules:
 // 13. Company Preparation Endpoint
 app.post('/api/ai/company-prep', async (req, res) => {
   const { companyName, domain, explanationLanguage } = req.body;
+
   try {
-    const langInst = getLanguageInstruction(explanationLanguage || 'English');
+    const selectedCompany = companyName || 'TCS';
+    const selectedDomain = domain || 'Software Development';
+    const selectedLanguage = explanationLanguage || 'English';
+
+    const langInst = getLanguageInstruction(selectedLanguage);
 
     const prompt = `
-Create a comprehensive Placement Preparation Guide for "${companyName || 'TCS'}".
-Domain: ${domain || 'Software Development'}.
+You are an expert placement preparation AI tutor.
+
+Create a comprehensive and practical Placement Preparation Guide.
+
+Target Company: "${selectedCompany}"
+Domain: "${selectedDomain}"
+Explanation Language: "${selectedLanguage}"
 
 ${langInst}
 
-Include:
-1. Recruitment Process & Exam Pattern
-2. Key Aptitude Topics asked by ${companyName}
-3. Technical & Coding Topics asked by ${companyName}
-4. 3 Sample Technical Questions with Answers
-5. 3 Sample HR Interview Questions with ideal STAR method answers
-6. Pro Tips to crack ${companyName} interviews.
+IMPORTANT LANGUAGE RULES:
+- Write ALL explanations, questions, answers, tips and preparation content in the selected explanation language.
+- Keep programming language names, technical abbreviations and standard technical terms such as Java, Python, SQL, DBMS, DSA, OOP, API etc. in English when appropriate.
+- Do NOT return empty sections.
+- Give useful and specific placement preparation content.
+- Do not invent confidential company information.
+- If company-specific information is uncertain, clearly provide general preparation guidance relevant to the company and domain.
 
-Return JSON:
-{
-  "company": "...",
-  "examPattern": ["...", "..."],
-  "aptitudeFocus": ["...", "..."],
-  "technicalFocus": ["...", "..."],
-  "technicalQuestions": [
-    { "question": "...", "answer": "..." }
-  ],
-  "hrQuestions": [
-    { "question": "...", "idealAnswer": "..." }
-  ],
-  "proTips": ["...", "..."]
-}
+Include:
+
+1. Recruitment Process & Exam Pattern
+2. Key Aptitude Topics relevant to the company
+3. Technical & Coding Topics relevant to the company and domain
+4. 3 Sample Technical Questions with detailed Answers
+5. 3 Sample HR Interview Questions with ideal answers
+6. Practical Pro Tips to prepare for the company
+
+Return ONLY valid JSON matching the provided response schema.
 `;
 
     const aiResponse = await generateGeminiContent({
       contents: prompt,
+
       config: {
         responseMimeType: 'application/json',
+
         responseSchema: {
           type: Type.OBJECT,
+
           properties: {
-            company: { type: Type.STRING },
-            examPattern: { type: Type.ARRAY, items: { type: Type.STRING } },
-            aptitudeFocus: { type: Type.ARRAY, items: { type: Type.STRING } },
-            technicalFocus: { type: Type.ARRAY, items: { type: Type.STRING } },
+            company: {
+              type: Type.STRING
+            },
+
+            examPattern: {
+              type: Type.ARRAY,
+              items: {
+                type: Type.STRING
+              }
+            },
+
+            aptitudeFocus: {
+              type: Type.ARRAY,
+              items: {
+                type: Type.STRING
+              }
+            },
+
+            technicalFocus: {
+              type: Type.ARRAY,
+              items: {
+                type: Type.STRING
+              }
+            },
+
             technicalQuestions: {
               type: Type.ARRAY,
               items: {
                 type: Type.OBJECT,
                 properties: {
-                  question: { type: Type.STRING },
-                  answer: { type: Type.STRING }
-                }
+                  question: {
+                    type: Type.STRING
+                  },
+                  answer: {
+                    type: Type.STRING
+                  }
+                },
+                required: ['question', 'answer']
               }
             },
+
             hrQuestions: {
               type: Type.ARRAY,
               items: {
                 type: Type.OBJECT,
                 properties: {
-                  question: { type: Type.STRING },
-                  idealAnswer: { type: Type.STRING }
-                }
+                  question: {
+                    type: Type.STRING
+                  },
+                  idealAnswer: {
+                    type: Type.STRING
+                  }
+                },
+                required: ['question', 'idealAnswer']
               }
             },
-            proTips: { type: Type.ARRAY, items: { type: Type.STRING } }
-          }
+
+            proTips: {
+              type: Type.ARRAY,
+              items: {
+                type: Type.STRING
+              }
+            }
+          },
+
+          required: [
+            'company',
+            'examPattern',
+            'aptitudeFocus',
+            'technicalFocus',
+            'technicalQuestions',
+            'hrQuestions',
+            'proTips'
+          ]
         }
       }
     });
 
     const prepData = JSON.parse(aiResponse.text || '{}');
-    return res.json({ prepData });
+
+    return res.json({
+      prepData
+    });
+
   } catch (err: any) {
-    console.warn('Company prep API failed, returning fallback prep guide:', err.message);
-    const fallbackPrep = getCompanyPrepFallback(companyName, domain);
-    return res.json({ prepData: fallbackPrep });
+    console.warn(
+      'Company prep API failed:',
+      err?.message || err
+    );
+
+    // Safe fallback when Gemini API is unavailable
+    return res.json({
+      prepData: {
+        company: companyName || 'TCS',
+
+        examPattern: [
+          'Online aptitude and reasoning assessment',
+          'Technical and coding assessment',
+          'Technical interview',
+          'HR or managerial interview'
+        ],
+
+        aptitudeFocus: [
+          'Percentages',
+          'Profit and Loss',
+          'Ratios and Proportions',
+          'Time, Speed and Distance',
+          'Time and Work',
+          'Number System',
+          'Logical Reasoning',
+          'Data Interpretation'
+        ],
+
+        technicalFocus: [
+          'Programming Fundamentals',
+          'Object-Oriented Programming',
+          'Data Structures and Algorithms',
+          'Arrays and Strings',
+          'Searching and Sorting',
+          'SQL and DBMS',
+          'Database Normalization',
+          domain || 'Software Development'
+        ],
+
+        technicalQuestions: [
+          {
+            question: 'What is the difference between method overloading and method overriding?',
+            answer:
+              'Method overloading means defining multiple methods with the same name but different parameter lists. It is compile-time polymorphism. Method overriding occurs when a child class provides its own implementation of a method inherited from a parent class. It is runtime polymorphism.'
+          },
+          {
+            question: 'What is the difference between a Primary Key and a Foreign Key?',
+            answer:
+              'A Primary Key uniquely identifies each record in a table and cannot contain NULL values. A Foreign Key is used to create a relationship between tables by referring to a key in another table.'
+          },
+          {
+            question: 'What is the difference between an INNER JOIN and a LEFT JOIN?',
+            answer:
+              'INNER JOIN returns only the records that have matching values in both tables. LEFT JOIN returns all records from the left table and the matching records from the right table.'
+          }
+        ],
+
+        hrQuestions: [
+          {
+            question: `Why do you want to join ${companyName || 'TCS'}?`,
+            idealAnswer:
+              `I want to join ${companyName || 'TCS'} because it provides opportunities to work on real-world projects and develop my technical and professional skills. My interest in software development aligns well with the opportunities available in the organization.`
+          },
+          {
+            question: 'Tell me about yourself.',
+            idealAnswer:
+              'I am a computer science student with an interest in software development and problem solving. I have worked on academic projects and continuously practice programming, SQL and technical concepts to prepare myself for a career in the software industry.'
+          },
+          {
+            question: 'Why should we hire you?',
+            idealAnswer:
+              'I have a strong foundation in programming and problem solving along with practical project experience. I am willing to learn new technologies, adapt to new environments and take responsibility for delivering quality work.'
+          }
+        ],
+
+        proTips: [
+          'Research the latest recruitment process of the target company before attending the assessment.',
+          'Practice aptitude and reasoning questions with a time limit.',
+          'Revise programming fundamentals, DSA, OOP, SQL and DBMS.',
+          'Understand every project, technology and skill mentioned in your resume.',
+          'Practice explaining your projects clearly from problem statement to implementation and result.',
+          'Prepare both technical and HR interview questions.',
+          'Stay calm and communicate your answers clearly during interviews.'
+        ]
+      }
+    });
   }
 });
 
