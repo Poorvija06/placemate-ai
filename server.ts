@@ -92,17 +92,183 @@ function getGeminiClient() {
 function getLanguageInstruction(language: string): string {
   switch (language) {
     case 'Tamil':
-      return 'CRITICAL MANDATE: Write ALL explanations, concept descriptions, questions, hints, solutions, and feedback strictly in TAMIL SCRIPT (e.g., "இந்தக் கருத்தை எளிமையாகப் புரிந்துகொள்வோம்."). Keep only code keywords and code syntax in English. Translate all instructional text and questions into TAMIL.';
+      return `
+LANGUAGE REQUIREMENT — VERY IMPORTANT:
+
+The selected explanation language is TAMIL.
+
+You MUST write the VALUE/CONTENT of every generated field in TAMIL SCRIPT.
+
+This includes:
+- explanations
+- concept descriptions
+- examples
+- questions
+- answers
+- hints
+- solutions
+- interview questions
+- interview answers
+- aptitude questions
+- technical questions
+- HR questions
+- tips
+- recruitment process descriptions
+- all other user-visible content
+
+JSON PROPERTY NAMES must remain in English because they are required by the API schema.
+
+However, ALL STRING VALUES inside those properties MUST be written in TAMIL.
+
+Example:
+{
+  "question": "Java-வில் method overloading என்றால் என்ன?",
+  "answer": "ஒரே class-ல் ஒரே method பெயரைப் பயன்படுத்தி..."
+}
+
+Do NOT write the explanations in English.
+
+Keep only programming code, programming syntax, programming language names, standard technical abbreviations, and unavoidable technical terms such as Java, Python, C++, SQL, DBMS, DSA, OOP, API, HTTP, REST, Git, GitHub in English when necessary.
+
+IMPORTANT:
+Do not translate JSON property names.
+Translate the actual user-visible CONTENT.
+`;
+
     case 'Tanglish':
-      return 'CRITICAL MANDATE: Write ALL explanations, concept descriptions, questions, hints, solutions, and feedback strictly in TANGLISH (Tamil language written in standard Roman/English alphabet, e.g., "Indha concept-ah first simple-ah purinjukalam. Indha question-ku answer epdi varudhu nu step-by-step paakalam."). Do NOT use Tamil script and do NOT use standard English.';
+      return `
+LANGUAGE REQUIREMENT — VERY IMPORTANT:
+
+The selected explanation language is TANGLISH.
+
+Write ALL user-visible content in TANGLISH — Tamil language written using Roman/English alphabet.
+
+This includes:
+- explanations
+- examples
+- questions
+- answers
+- hints
+- solutions
+- interview questions
+- interview answers
+- aptitude content
+- technical content
+- HR content
+- preparation tips
+
+JSON PROPERTY NAMES must remain in English because they are required by the API schema.
+
+Do NOT use Tamil Unicode script.
+Do NOT write normal English paragraphs.
+
+Example:
+{
+  "question": "Java-la method overloading na enna?",
+  "answer": "Orey class-la same method name-ah different parameters-oda use panradhu method overloading."
+}
+
+Keep programming code, syntax, programming language names and standard technical terms such as Java, Python, SQL, DBMS, DSA and OOP in English when necessary.
+`;
+
     case 'Hindi':
-      return 'CRITICAL MANDATE: Write ALL explanations, concept descriptions, questions, hints, solutions, and feedback strictly in HINDI (Hindi script or clear Hinglish). Keep code syntax in English.';
+      return `
+LANGUAGE REQUIREMENT — VERY IMPORTANT:
+
+The selected explanation language is HINDI.
+
+Write ALL user-visible CONTENT in HINDI.
+
+This includes:
+- explanations
+- examples
+- questions
+- answers
+- hints
+- solutions
+- aptitude content
+- technical content
+- HR questions and answers
+- preparation tips
+- recruitment information
+
+JSON PROPERTY NAMES must remain in English because they are required by the API schema.
+
+All STRING VALUES must be written in Hindi.
+
+Use Hindi script preferably. English may be used only for programming code, programming syntax, programming language names and standard technical terms such as Java, Python, SQL, DBMS, DSA and OOP.
+
+Do NOT return English explanations.
+`;
+
     case 'Malayalam':
-      return 'CRITICAL MANDATE: Write ALL explanations, concept descriptions, questions, hints, solutions, and feedback strictly in MALAYALAM. Keep code syntax in English.';
+      return `
+LANGUAGE REQUIREMENT — VERY IMPORTANT:
+
+The selected explanation language is MALAYALAM.
+
+Write ALL user-visible CONTENT in MALAYALAM.
+
+This includes:
+- explanations
+- examples
+- questions
+- answers
+- hints
+- solutions
+- aptitude content
+- technical content
+- HR questions and answers
+- preparation tips
+- recruitment information
+
+JSON PROPERTY NAMES must remain in English because they are required by the API schema.
+
+All STRING VALUES must be written in Malayalam.
+
+Keep only programming code, syntax, programming language names and standard technical terms such as Java, Python, SQL, DBMS, DSA and OOP in English when necessary.
+
+Do NOT return English explanations.
+`;
+
     case 'Telugu':
-      return 'CRITICAL MANDATE: Write ALL explanations, concept descriptions, questions, hints, solutions, and feedback strictly in TELUGU. Keep code syntax in English.';
+      return `
+LANGUAGE REQUIREMENT — VERY IMPORTANT:
+
+The selected explanation language is TELUGU.
+
+Write ALL user-visible CONTENT in TELUGU.
+
+This includes:
+- explanations
+- examples
+- questions
+- answers
+- hints
+- solutions
+- aptitude content
+- technical content
+- HR questions and answers
+- preparation tips
+- recruitment information
+
+JSON PROPERTY NAMES must remain in English because they are required by the API schema.
+
+All STRING VALUES must be written in Telugu.
+
+Keep only programming code, syntax, programming language names and standard technical terms such as Java, Python, SQL, DBMS, DSA and OOP in English when necessary.
+
+Do NOT return English explanations.
+`;
+
     default:
-      return 'CRITICAL MANDATE: Write ALL explanations, questions, and feedback strictly in clear, standard English.';
+      return `
+LANGUAGE REQUIREMENT:
+
+Write ALL user-visible content in clear, standard ENGLISH.
+
+JSON property names and string values should be in English.
+`;
   }
 }
 
