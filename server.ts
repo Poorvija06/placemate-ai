@@ -386,78 +386,410 @@ function getAptitudeFallback(topic: string, difficulty: string, lang: string) {
   };
 }
 
-function getDsaFallback(topic: string, programmingLanguage: string, lang: string) {
+
+function getDsaFallback(
+  topic: string,
+  programmingLanguage: string,
+  lang: string
+) {
   const pLang = programmingLanguage || 'Java';
+  const selectedLang = lang || 'English';
+  const selectedTopic = topic || 'Arrays';
+
+  const content: any = {
+    English: {
+      conceptTitle: `${selectedTopic} Mastery in ${pLang}`,
+      explanation: `${selectedTopic} is a fundamental data structure or algorithm topic. In campus placement coding rounds, time complexity, implementation and problem-solving are commonly tested.`,
+      lineByLineExplanation: [
+        'Initialize the required variables with the first element.',
+        'Traverse the remaining elements and compare each value.',
+        'Update the required variable whenever a better value is found.',
+        'Return the final result after completing the traversal.'
+      ],
+      title: 'Find Second Largest Element',
+      description: 'Given an array of integers, find the second largest element in a single pass without sorting.',
+      expectedOutput: 'Second Largest: 45',
+      hint: 'Keep two variables: largest and secondLargest. Update them while traversing the array.'
+    },
+
+    Tamil: {
+      conceptTitle: `${selectedTopic} - ${pLang} மூலம் கற்றுக்கொள்வோம்`,
+      explanation: `${selectedTopic} என்பது முக்கியமான Data Structures மற்றும் Algorithms கருத்தாகும். Campus placement coding rounds-ல் time complexity, implementation மற்றும் problem solving ஆகியவை முக்கியமாக சோதிக்கப்படும்.`,
+      lineByLineExplanation: [
+        'Array-ன் முதல் element-ஐ தேவையான variable-ல் சேமிக்கவும்.',
+        'மீதமுள்ள elements அனைத்தையும் ஒன்றன் பின் ஒன்றாக traverse செய்யவும்.',
+        'தேவையான இடத்தில் variable-ன் value-ஐ update செய்யவும்.',
+        'முழு traversal முடிந்த பிறகு final result-ஐ return செய்யவும்.'
+      ],
+      title: 'இரண்டாவது பெரிய எண்ணைக் கண்டறிதல்',
+      description: 'ஒரு integer array கொடுக்கப்பட்டுள்ளது. Sorting பயன்படுத்தாமல் ஒரே traversal-ல் இரண்டாவது பெரிய எண்ணைக் கண்டறியவும்.',
+      expectedOutput: 'Second Largest: 45',
+      hint: 'largest மற்றும் secondLargest என்ற இரண்டு variables-ஐ வைத்துக்கொண்டு array-ஐ ஒரே loop-ல் traverse செய்யவும்.'
+    },
+
+    Tanglish: {
+      conceptTitle: `${selectedTopic} - ${pLang} la Learn Pannalam`,
+      explanation: `${selectedTopic} oru important Data Structures and Algorithms concept. Campus placement coding rounds-la time complexity, implementation and problem solving romba mukkiyam.`,
+      lineByLineExplanation: [
+        'Array-oda first element-ah required variable-la store pannunga.',
+        'Remaining elements-ah one by one traverse pannunga.',
+        'Better value kidaikkumbodhu required variable-ah update pannunga.',
+        'Full traversal mudinjadhum final result-ah return pannunga.'
+      ],
+      title: 'Second Largest Element Find Pannradhu',
+      description: 'Oru integer array kuduthirukku. Sorting use pannama single traversal-la second largest element-ah find pannunga.',
+      expectedOutput: 'Second Largest: 45',
+      hint: 'largest and secondLargest nu rendu variables maintain panni array-ah single loop-la traverse pannunga.'
+    },
+
+    Hindi: {
+      conceptTitle: `${selectedTopic} - ${pLang} में समझें`,
+      explanation: `${selectedTopic} एक महत्वपूर्ण Data Structures और Algorithms विषय है। Campus placement coding rounds में time complexity, implementation और problem solving को महत्वपूर्ण रूप से जाँचा जाता है।`,
+      lineByLineExplanation: [
+        'पहले element को आवश्यक variable में store करें।',
+        'बाकी सभी elements को एक-एक करके traverse करें।',
+        'बेहतर value मिलने पर variable को update करें।',
+        'पूरी traversal के बाद final result return करें।'
+      ],
+      title: 'दूसरी सबसे बड़ी संख्या खोजें',
+      description: 'एक integer array दिया गया है। Sorting का उपयोग किए बिना एक ही traversal में दूसरी सबसे बड़ी संख्या खोजें।',
+      expectedOutput: 'Second Largest: 45',
+      hint: 'largest और secondLargest नाम के दो variables रखें और array को एक loop में traverse करें।'
+    },
+
+    Malayalam: {
+      conceptTitle: `${selectedTopic} - ${pLang} ഉപയോഗിച്ച് പഠിക്കാം`,
+      explanation: `${selectedTopic} ഒരു പ്രധാന Data Structures and Algorithms വിഷയമാണ്. Campus placement coding rounds-ൽ time complexity, implementation, problem solving എന്നിവ പ്രധാനമായി പരിശോധിക്കപ്പെടുന്നു.`,
+      lineByLineExplanation: [
+        'ആദ്യത്തെ element ആവശ്യമായ variable-ൽ store ചെയ്യുക.',
+        'ശേഷിക്കുന്ന elements ഓരോന്നായി traverse ചെയ്യുക.',
+        'മികച്ച value ലഭിക്കുമ്പോൾ variable update ചെയ്യുക.',
+        'Traversal പൂർത്തിയായ ശേഷം final result return ചെയ്യുക.'
+      ],
+      title: 'രണ്ടാമത്തെ വലിയ സംഖ്യ കണ്ടെത്തുക',
+      description: 'ഒരു integer array നൽകിയിരിക്കുന്നു. Sorting ഉപയോഗിക്കാതെ ഒരൊറ്റ traversal-ൽ രണ്ടാമത്തെ വലിയ സംഖ്യ കണ്ടെത്തുക.',
+      expectedOutput: 'Second Largest: 45',
+      hint: 'largest, secondLargest എന്നീ രണ്ട് variables ഉപയോഗിച്ച് array ഒരു loop-ൽ traverse ചെയ്യുക.'
+    },
+
+    Telugu: {
+      conceptTitle: `${selectedTopic} - ${pLang} లో నేర్చుకుందాం`,
+      explanation: `${selectedTopic} ఒక ముఖ్యమైన Data Structures and Algorithms అంశం. Campus placement coding rounds లో time complexity, implementation మరియు problem solving ముఖ్యంగా పరీక్షించబడతాయి.`,
+      lineByLineExplanation: [
+        'మొదటి element ను అవసరమైన variable లో store చేయండి.',
+        'మిగిలిన elements ను ఒక్కొక్కటిగా traverse చేయండి.',
+        'మంచి value కనిపించినప్పుడు variable ను update చేయండి.',
+        'Traversal పూర్తైన తర్వాత final result ను return చేయండి.'
+      ],
+      title: 'రెండవ అతిపెద్ద సంఖ్యను కనుగొనండి',
+      description: 'ఒక integer array ఇవ్వబడింది. Sorting ఉపయోగించకుండా ఒకే traversal లో రెండవ అతిపెద్ద సంఖ్యను కనుగొనండి.',
+      expectedOutput: 'Second Largest: 45',
+      hint: 'largest మరియు secondLargest అనే రెండు variables ఉంచి array ను ఒకే loop లో traverse చేయండి.'
+    }
+  };
+
+  const text = content[selectedLang] || content.English;
+
   return {
-    topic: topic || 'Arrays',
-    conceptTitle: `${topic || 'Arrays'} Mastery in ${pLang}`,
-    explanation: `${topic || 'Arrays'} is a fundamental contiguous memory data structure. In campus placement coding rounds, time complexity (O(1) indexing, O(N) traversal) and memory management are heavily tested.`,
+    topic: selectedTopic,
+    conceptTitle: text.conceptTitle,
+
+    explanation: text.explanation,
+
     codeExample: {
       language: pLang,
-      code: pLang === 'Python' 
-        ? `def find_max(arr):\n    max_val = arr[0]\n    for num in arr:\n        if num > max_val:\n            max_val = num\n    return max_val\n\nprint("Max element:", find_max([12, 45, 2, 89, 34]))`
-        : `public class Main {\n    public static int findMax(int[] arr) {\n        int max = arr[0];\n        for (int i = 1; i < arr.length; i++) {\n            if (arr[i] > max) max = arr[i];\n        }\n        return max;\n    }\n    public static void main(String[] args) {\n        int[] arr = {12, 45, 2, 89, 34};\n        System.out.println("Max element: " + findMax(arr));\n    }\n}`,
-      lineByLineExplanation: [
-        `Initialize maximum tracker with the first element of the array.`,
-        `Loop through the remaining elements comparing each with the maximum tracker.`,
-        `Update tracker whenever a larger value is encountered.`,
-        `Return the final maximum value after linear traversal (O(N) time).`
-      ]
+      code:
+        pLang === 'Python'
+          ? `def find_max(arr):
+    max_val = arr[0]
+    for num in arr:
+        if num > max_val:
+            max_val = num
+    return max_val
+
+print("Max element:", find_max([12, 45, 2, 89, 34]))`
+          : `public class Main {
+    public static int findMax(int[] arr) {
+        int max = arr[0];
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] > max) max = arr[i];
+        }
+        return max;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {12, 45, 2, 89, 34};
+        System.out.println("Max element: " + findMax(arr));
+    }
+}`,
+      lineByLineExplanation: text.lineByLineExplanation
     },
+
     practiceProblem: {
-      title: `Find Second Largest Element`,
-      description: `Given an array of integers, write a function to find and return the second largest element in a single pass without sorting.`,
-      starterCode: pLang === 'Python'
-        ? `def second_largest(arr):\n    # Write your solution here\n    pass`
-        : `public class Solution {\n    public static int secondLargest(int[] arr) {\n        // Write your solution here\n        return -1;\n    }\n}`,
-      expectedOutput: `Second Largest: 45`,
-      hint: `Keep two variable trackers: largest and secondLargest. Update both appropriately in a single loop traversal.`,
-      solutionCode: pLang === 'Python'
-        ? `def second_largest(arr):\n    first = second = float('-inf')\n    for n in arr:\n        if n > first:\n            second = first\n            first = n\n        elif n > second and n != first:\n            second = n\n    return second`
-        : `public class Solution {\n    public static int secondLargest(int[] arr) {\n        int first = Integer.MIN_VALUE, second = Integer.MIN_VALUE;\n        for (int n : arr) {\n            if (n > first) {\n                second = first;\n                first = n;\n            } else if (n > second && n != first) {\n                second = n;\n            }\n        }\n        return second;\n    }\n}`
+      title: text.title,
+      description: text.description,
+      starterCode:
+        pLang === 'Python'
+          ? `def second_largest(arr):
+    # Write your solution here
+    pass`
+          : `public class Solution {
+    public static int secondLargest(int[] arr) {
+        // Write your solution here
+        return -1;
+    }
+}`,
+      expectedOutput: text.expectedOutput,
+      hint: text.hint,
+      solutionCode:
+        pLang === 'Python'
+          ? `def second_largest(arr):
+    first = second = float('-inf')
+
+    for n in arr:
+        if n > first:
+            second = first
+            first = n
+        elif n > second and n != first:
+            second = n
+
+    return second`
+          : `public class Solution {
+    public static int secondLargest(int[] arr) {
+        int first = Integer.MIN_VALUE;
+        int second = Integer.MIN_VALUE;
+
+        for (int n : arr) {
+            if (n > first) {
+                second = first;
+                first = n;
+            } else if (n > second && n != first) {
+                second = n;
+            }
+        }
+
+        return second;
+    }
+}`
     }
   };
 }
 
-function getProgrammingFallback(topic: string, programmingLanguage: string, lang: string) {
+
+function getProgrammingFallback(
+  topic: string,
+  programmingLanguage: string,
+  lang: string
+) {
   const pLang = programmingLanguage || 'Java';
-  return {
-    topic: topic || 'Variables & Data Types',
-    conceptTitle: `Understanding ${topic || 'Variables & Data Types'} in ${pLang}`,
-    simpleExplanation: `In ${pLang}, variables act as named containers in memory that hold data. Selecting the correct data type optimizes RAM usage and prevents overflow errors during execution.`,
-    syntaxRules: `1. Always declare the variable type before use.\n2. Variable names must follow camelCase naming conventions.\n3. Case sensitivity applies: 'count' and 'Count' are distinct variables.`,
-    codeExample: {
-      language: pLang,
-      code: pLang === 'Python'
-        ? `student_name = "Alex"\nage = 20\ngpa = 8.5\nis_enrolled = True\n\nprint(f"Student: {student_name}, GPA: {gpa}")`
-        : `public class Main {\n    public static void main(String[] args) {\n        String studentName = "Alex";\n        int age = 20;\n        double gpa = 8.5;\n        boolean isEnrolled = true;\n\n        System.out.println("Student: " + studentName + ", GPA: " + gpa);\n    }\n}`,
+  const selectedLang = lang || 'English';
+  const selectedTopic = topic || 'Variables & Data Types';
+
+  const content: any = {
+    English: {
+      conceptTitle: `Understanding ${selectedTopic} in ${pLang}`,
+      explanation: `In ${pLang}, variables are named containers used to store data. Choosing the correct data type helps manage memory and avoid errors.`,
+      syntaxRules: '1. Declare the variable before using it.\n2. Use meaningful variable names.\n3. Remember that programming languages are case-sensitive.',
       lineByLineExplanation: [
-        `Declare and initialize String variable storing student name.`,
-        `Declare integer variable holding age in years.`,
-        `Declare floating-point variable storing GPA score.`,
-        `Declare boolean variable storing enrollment status.`,
-        `Print formatted string containing student details to stdout.`
+        'Declare and initialize the variable.',
+        'Store the required value in the variable.',
+        'Use the variable in the program.',
+        'Display the required result.'
+      ],
+      title: 'Swap Two Variables',
+      description: `Write a ${pLang} program to swap two integer variables.`,
+      exerciseType: 'Coding Challenge',
+      expectedOutput: 'a = 10, b = 5',
+      hints: [
+        'Hint 1: Store the value of a in a temporary variable.',
+        'Hint 2: Assign b to a.',
+        'Hint 3: Assign the temporary value to b.'
       ]
     },
-    practiceExercise: {
-      title: `Swap Two Variables`,
-      description: `Write a program in ${pLang} to swap the values of two integer variables 'a' and 'b' and print their new values.`,
-      exerciseType: `Coding Challenge`,
-      starterCode: pLang === 'Python'
-        ? `a = 5\nb = 10\n# Swap values here\nprint(f"a = {a}, b = {b}")`
-        : `public class Main {\n    public static void main(String[] args) {\n        int a = 5;\n        int b = 10;\n        // Swap values here\n        System.out.println("a = " + a + ", b = " + b);\n    }\n}`,
-      expectedOutput: `a = 10, b = 5`,
-      hints: [
-        `Hint 1: Use a temporary variable 'temp' to hold value of 'a'.`,
-        `Hint 2: Assign 'b' to 'a'.`,
-        `Hint 3: Assign 'temp' to 'b'.`
+
+    Tamil: {
+      conceptTitle: `${selectedTopic} - ${pLang} இல் புரிந்துகொள்வோம்`,
+      explanation: `${pLang}-ல் variables என்பது data-வை சேமிக்க பயன்படுத்தப்படும் பெயரிடப்பட்ட memory containers ஆகும். சரியான data type-ஐ தேர்வு செய்வது memory-ஐ சரியாக பயன்படுத்தவும் errors-ஐ தவிர்க்கவும் உதவும்.`,
+      syntaxRules: '1. Variable-ஐ பயன்படுத்துவதற்கு முன் declare செய்ய வேண்டும்.\n2. Meaningful variable names பயன்படுத்தவும்.\n3. Programming languages case-sensitive என்பதை நினைவில் கொள்ளவும்.',
+      lineByLineExplanation: [
+        'Variable-ஐ declare செய்து தேவையான value-ஐ initialize செய்யவும்.',
+        'தேவையான data-வை variable-ல் சேமிக்கவும்.',
+        'Program-ல் variable-ஐ பயன்படுத்தவும்.',
+        'தேவையான result-ஐ display செய்யவும்.'
       ],
-      solutionCode: pLang === 'Python'
-        ? `a = 5\nb = 10\ntemp = a\na = b\nb = temp\nprint(f"a = {a}, b = {b}")`
-        : `public class Main {\n    public static void main(String[] args) {\n        int a = 5;\n        int b = 10;\n        int temp = a;\n        a = b;\n        b = temp;\n        System.out.println("a = " + a + ", b = " + b);\n    }\n}`
+      title: 'இரண்டு Variables-ஐ மாற்றுதல்',
+      description: `${pLang}-ல் இரண்டு integer variables-ன் values-ஐ மாற்றும் program-ஐ எழுதவும்.`,
+      exerciseType: 'Coding Challenge',
+      expectedOutput: 'a = 10, b = 5',
+      hints: [
+        'Hint 1: a-வின் value-ஐ temporary variable-ல் சேமிக்கவும்.',
+        'Hint 2: b-வின் value-ஐ a-க்கு assign செய்யவும்.',
+        'Hint 3: temporary variable-ன் value-ஐ b-க்கு assign செய்யவும்.'
+      ]
+    },
+
+    Tanglish: {
+      conceptTitle: `${selectedTopic} - ${pLang} la Purinjukalam`,
+      explanation: `${pLang}-la variables na data-ah store panna use panra named containers. Correct data type select pannina memory usage better-ah irukkum and errors avoid pannalam.`,
+      syntaxRules: '1. Variable-ah use panna munnaadi declare pannunga.\n2. Meaningful variable names use pannunga.\n3. Programming languages case-sensitive nu remember pannunga.',
+      lineByLineExplanation: [
+        'Variable-ah declare panni required value-ah initialize pannunga.',
+        'Required data-ah variable-la store pannunga.',
+        'Program-la variable-ah use pannunga.',
+        'Required result-ah display pannunga.'
+      ],
+      title: 'Rendu Variables-ah Swap Pannradhu',
+      description: `${pLang}-la rendu integer variables-oda values-ah swap panra program write pannunga.`,
+      exerciseType: 'Coding Challenge',
+      expectedOutput: 'a = 10, b = 5',
+      hints: [
+        'Hint 1: a-oda value-ah temporary variable-la store pannunga.',
+        'Hint 2: b-oda value-ah a-ku assign pannunga.',
+        'Hint 3: temporary variable-oda value-ah b-ku assign pannunga.'
+      ]
+    },
+
+    Hindi: {
+      conceptTitle: `${selectedTopic} को ${pLang} में समझें`,
+      explanation: `${pLang} में variables data को store करने के लिए named containers होते हैं। सही data type चुनने से memory का बेहतर उपयोग होता है और errors कम होते हैं।`,
+      syntaxRules: '1. Variable को उपयोग करने से पहले declare करें।\n2. Meaningful variable names का उपयोग करें।\n3. Programming languages case-sensitive होती हैं।',
+      lineByLineExplanation: [
+        'Variable को declare करके value initialize करें।',
+        'आवश्यक data को variable में store करें।',
+        'Program में variable का उपयोग करें।',
+        'Required result को display करें।'
+      ],
+      title: 'दो Variables को Swap करना',
+      description: `${pLang} में दो integer variables की values को swap करने का program लिखें।`,
+      exerciseType: 'Coding Challenge',
+      expectedOutput: 'a = 10, b = 5',
+      hints: [
+        'Hint 1: a की value को temporary variable में store करें।',
+        'Hint 2: b की value को a में assign करें।',
+        'Hint 3: temporary value को b में assign करें।'
+      ]
+    },
+
+    Malayalam: {
+      conceptTitle: `${selectedTopic} - ${pLang} ൽ മനസ്സിലാക്കാം`,
+      explanation: `${pLang}-ൽ variables data store ചെയ്യാൻ ഉപയോഗിക്കുന്ന named containers ആണ്. ശരിയായ data type തിരഞ്ഞെടുക്കുന്നത് memory നന്നായി ഉപയോഗിക്കാനും errors ഒഴിവാക്കാനും സഹായിക്കുന്നു.`,
+      syntaxRules: '1. Variable ഉപയോഗിക്കുന്നതിന് മുമ്പ് declare ചെയ്യുക.\n2. Meaningful variable names ഉപയോഗിക്കുക.\n3. Programming languages case-sensitive ആണെന്ന് ഓർക്കുക.',
+      lineByLineExplanation: [
+        'Variable declare ചെയ്ത് value initialize ചെയ്യുക.',
+        'ആവശ്യമായ data variable-ൽ store ചെയ്യുക.',
+        'Program-ൽ variable ഉപയോഗിക്കുക.',
+        'ആവശ്യമായ result display ചെയ്യുക.'
+      ],
+      title: 'രണ്ട് Variables Swap ചെയ്യുക',
+      description: `${pLang}-ൽ രണ്ട് integer variables-ന്റെ values swap ചെയ്യുന്ന program എഴുതുക.`,
+      exerciseType: 'Coding Challenge',
+      expectedOutput: 'a = 10, b = 5',
+      hints: [
+        'Hint 1: a-യുടെ value temporary variable-ൽ store ചെയ്യുക.',
+        'Hint 2: b-യുടെ value a-യിലേക്ക് assign ചെയ്യുക.',
+        'Hint 3: temporary value b-യിലേക്ക് assign ചെയ്യുക.'
+      ]
+    },
+
+    Telugu: {
+      conceptTitle: `${selectedTopic} - ${pLang} లో అర్థం చేసుకుందాం`,
+      explanation: `${pLang} లో variables అనేవి data ను store చేయడానికి ఉపయోగించే named containers. సరైన data type ఎంచుకోవడం memory usage ను మెరుగుపరచి errors ను తగ్గిస్తుంది.`,
+      syntaxRules: '1. Variable ను ఉపయోగించే ముందు declare చేయాలి.\n2. Meaningful variable names ఉపయోగించండి.\n3. Programming languages case-sensitive అని గుర్తుంచుకోండి.',
+      lineByLineExplanation: [
+        'Variable ను declare చేసి value ను initialize చేయండి.',
+        'అవసరమైన data ను variable లో store చేయండి.',
+        'Program లో variable ను ఉపయోగించండి.',
+        'అవసరమైన result ను display చేయండి.'
+      ],
+      title: 'రెండు Variables ను Swap చేయడం',
+      description: `${pLang} లో రెండు integer variables values ను swap చేసే program రాయండి.`,
+      exerciseType: 'Coding Challenge',
+      expectedOutput: 'a = 10, b = 5',
+      hints: [
+        'Hint 1: a value ను temporary variable లో store చేయండి.',
+        'Hint 2: b value ను a కి assign చేయండి.',
+        'Hint 3: temporary value ను b కి assign చేయండి.'
+      ]
+    }
+  };
+
+  const text = content[selectedLang] || content.English;
+
+  return {
+    topic: selectedTopic,
+    conceptTitle: text.conceptTitle,
+    simpleExplanation: text.explanation,
+    syntaxRules: text.syntaxRules,
+
+    codeExample: {
+      language: pLang,
+      code:
+        pLang === 'Python'
+          ? `student_name = "Alex"
+age = 20
+gpa = 8.5
+is_enrolled = True
+
+print(f"Student: {student_name}, GPA: {gpa}")`
+          : `public class Main {
+    public static void main(String[] args) {
+        String studentName = "Alex";
+        int age = 20;
+        double gpa = 8.5;
+        boolean isEnrolled = true;
+
+        System.out.println("Student: " + studentName + ", GPA: " + gpa);
+    }
+}`,
+      lineByLineExplanation: text.lineByLineExplanation
+    },
+
+    practiceExercise: {
+      title: text.title,
+      description: text.description,
+      exerciseType: text.exerciseType,
+      starterCode:
+        pLang === 'Python'
+          ? `a = 5
+b = 10
+# Swap values here
+print(f"a = {a}, b = {b}")`
+          : `public class Main {
+    public static void main(String[] args) {
+        int a = 5;
+        int b = 10;
+
+        // Swap values here
+
+        System.out.println("a = " + a + ", b = " + b);
+    }
+}`,
+      expectedOutput: text.expectedOutput,
+      hints: text.hints,
+      solutionCode:
+        pLang === 'Python'
+          ? `a = 5
+b = 10
+temp = a
+a = b
+b = temp
+print(f"a = {a}, b = {b}")`
+          : `public class Main {
+    public static void main(String[] args) {
+        int a = 5;
+        int b = 10;
+
+        int temp = a;
+        a = b;
+        b = temp;
+
+        System.out.println("a = " + a + ", b = " + b);
+    }
+}`
     }
   };
 }
+
 
 function getCodeEvalFallback(code: string, programmingLanguage: string) {
   const pLang = programmingLanguage || 'Java';
@@ -1238,7 +1570,14 @@ You are an expert AI Programming Tutor for college campus placements.
 Teach the topic "${topic || 'Variables & Data Types'}" in ${progLang}.
 
 ${langInst}
+${langInst}
 
+IMPORTANT:
+- JSON property names must remain in English.
+- All user-visible textual content must be written in ${explanationLanguage || 'English'}.
+- The fields explanation, conceptTitle, lineByLineExplanation, title, description, expectedOutput and hint MUST follow the selected explanation language.
+- starterCode and solutionCode must contain only ${lang} code.
+- Do not write English explanations when Tamil, Tanglish, Hindi, Malayalam or Telugu is selected.
 Provide:
 1. conceptTitle: clear descriptive title for "${topic}" in ${progLang}
 2. simpleExplanation: plain-language step-by-step conceptual guide in ${explanationLanguage || 'English'}.
